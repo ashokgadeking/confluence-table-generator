@@ -26,7 +26,13 @@ with open('cfn-resource-spec.json') as f:
 						desc = desc.replace("  ", " ")
 					cleaned_desc = desc.replace('\t','').replace('\n','')
 					parent_tag = tag.next_sibling.find_all(string="Type")[0].parent.parent
-					sub_prop_type = str(parent_tag).split(" ",1)[1][:-4]
 					stripped_url = url.rsplit("/",1)[0] + "/"
-					f.write('|'+ str(i) + '|' + property + '|' + cleaned_desc + '|' + sub_prop_type.replace('./', stripped_url) + '|' + '' + '|' + '' + '|' + '' + '|\n')
+					prop_type = parent_tag.get_text().split(" ",1)[1]
+					link = parent_tag.find('a', href=True)
+					if link is not None:
+						new_link = link['href'].replace('./', stripped_url)
+						prop_type = '[' + prop_type + '|' + new_link + ']'
+					f.write('|'+ str(i) + '|' + property + '|' 
+						+ cleaned_desc + '|' + prop_type
+						+ '|' + ' ' + '|' + ' ' + '|' + ' ' + '|\n')
 					i+=1

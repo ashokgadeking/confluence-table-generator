@@ -1,12 +1,12 @@
 ||No.||Property||Description||Type||Threat Context||GR Required||Jira Story
-|1|TargetDataProviderDescriptors|Information about the target data provider, including the name or ARN, and AWS Secrets Manager parameters.|Array of <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-dataproviderdescriptor.html">DataProviderDescriptor</a>||||
-|2|MigrationProjectName|The name of the migration project.|String||||
-|3|InstanceProfileName|The name of the associated instance profile.|String||||
-|4|Description|A user-friendly description of the migration project.|String||||
-|5|MigrationProjectIdentifier|The identifier of the migration project. Identifiers must begin with a letter  and must contain only ASCII letters, digits, and hyphens. They can't end with  a hyphen, or contain two consecutive hyphens.|String||||
-|6|SourceDataProviderDescriptors|Information about the source data provider, including the name or ARN, and AWS Secrets Manager parameters.|Array of <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-dataproviderdescriptor.html">DataProviderDescriptor</a>||||
-|7|TransformationRules|The settings in JSON format for migration rules. Migration rules make it possible for you to change  the object names according to the rules that you specify. For example, you can change an object name  to lowercase or uppercase, add or remove a prefix or suffix, or rename objects.|String||||
-|8|SchemaConversionApplicationAttributes|The schema conversion application attributes, including the Amazon S3 bucket name and Amazon S3 role ARN.|<a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-schemaconversionapplicationattributes.html">SchemaConversionApplicationAttributes</a>||||
-|9|InstanceProfileArn|The Amazon Resource Name (ARN) of the instance profile for your migration project.|String||||
-|10|Tags|Property description not available.|Array of <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-tag.html">Tag</a>||||
-|11|InstanceProfileIdentifier|The identifier of the instance profile for your migration project.|String||||
+|1|TargetDataProviderDescriptors|Information about the target data provider, including the name or ARN, and AWS Secrets Manager parameters.|[Array of DataProviderDescriptor|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-dataproviderdescriptor.html]| | | |
+|2|MigrationProjectName|The name of the migration project.|String| | | |
+|3|InstanceProfileName|The name of the associated instance profile.|String| | | |
+|4|Description|A user-friendly description of the migration project.|String| | | |
+|5|MigrationProjectIdentifier|The identifier of the migration project. Identifiers must begin with a letter  and must contain only ASCII letters, digits, and hyphens. They can't end with  a hyphen, or contain two consecutive hyphens.|String| | | |
+|6|SourceDataProviderDescriptors|Information about the source data provider, including the name or ARN, and AWS Secrets Manager parameters.|[Array of DataProviderDescriptor|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-dataproviderdescriptor.html]| | | |
+|7|TransformationRules|The settings in JSON format for migration rules. Migration rules make it possible for you to change  the object names according to the rules that you specify. For example, you can change an object name  to lowercase or uppercase, add or remove a prefix or suffix, or rename objects.|String| | | |
+|8|SchemaConversionApplicationAttributes|The schema conversion application attributes, including the Amazon S3 bucket name and Amazon S3 role ARN.|[SchemaConversionApplicationAttributes|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-schemaconversionapplicationattributes.html]| | | |
+|9|InstanceProfileArn|The Amazon Resource Name (ARN) of the instance profile for your migration project.|String| | | |
+|10|Tags|Property description not available.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-tag.html]| | | |
+|11|InstanceProfileIdentifier|The identifier of the instance profile for your migration project.|String| | | |
