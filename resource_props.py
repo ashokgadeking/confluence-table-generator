@@ -43,5 +43,8 @@ with open('cfn-resource-spec.json') as f:
 					sub_prop_type = str(parent_tag).split(" ",1)[1][:-4]
 					stripped_url = url.rsplit("/",1)[0] + "/"
 					f.write('<td style="border: 1px solid #000;">'+ sub_prop_type.replace('./', stripped_url) + '</td>')
+					f.write('<td style="border: 1px solid #000;"></td>')
+					f.write('<td style="border: 1px solid #000;"></td>')
+					f.write('<td style="border: 1px solid #000;"></td>')
 					f.write('<tr>')
 				f.write('</table>')
