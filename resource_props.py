@@ -20,7 +20,7 @@ with open('cfn-resource-spec.json') as f:
 				f.write('<th style="border: 1px solid #000;">Type</th>')
 				f.write('<th style="border: 1px solid #000;">Threat Context</th>')
 				f.write('<th style="border: 1px solid #000;">GR Required</th>')
-				f.write('<th style="border: 1px solid #000;">JIRA Story3</th>')
+				f.write('<th style="border: 1px solid #000;">JIRA Story</th>')
 				f.write('</tr>')
 				print("\n"+resource)
 				properties = d['ResourceTypes'][resource]['Properties'].keys()
