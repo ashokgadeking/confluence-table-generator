@@ -12,7 +12,7 @@ with open('cfn-resource-spec.json') as f:
 	for resource in d['ResourceTypes'].keys():
 		if service in resource:
 			with open(resource.strip(":")+".md", "w") as f:
-				f.write('||No.||Property||Description||Type||Threat Context||GR Required||Jira Story')
+				f.write('||No.||Property||Description||Type||Threat Context||GR Required||Jira Story\n')
 				print("\n"+resource)
 				properties = d['ResourceTypes'][resource]['Properties'].keys()
 				i=1
@@ -28,5 +28,5 @@ with open('cfn-resource-spec.json') as f:
 					parent_tag = tag.next_sibling.find_all(string="Type")[0].parent.parent
 					sub_prop_type = str(parent_tag).split(" ",1)[1][:-4]
 					stripped_url = url.rsplit("/",1)[0] + "/"
-					f.write('|'+ str(i) + '|' + property + '|' + cleaned_desc + '|' + sub_prop_type.replace('./', stripped_url) + '|' + '' + '|' + '' + '|' + '' + '|')
+					f.write('|'+ str(i) + '|' + property + '|' + cleaned_desc + '|' + sub_prop_type.replace('./', stripped_url) + '|' + '' + '|' + '' + '|' + '' + '|\n')
 					i+=1
