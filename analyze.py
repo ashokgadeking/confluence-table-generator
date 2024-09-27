@@ -13,9 +13,11 @@ with open('cfn-resource-spec.json') as f:
 			for property in properties:
 				prop_dict[property].append(resource)
 
+with open(service + '_common_props' + ".md", "w") as f:
 	for key, value in prop_dict.items():
 		if len(value) > 1:
-			print("\n"+key)
+			f.write('||Property||Resources\n')
+			line = '|' + key + '|'
 			for res_type in value:
-				print(res_type)
-
+				line += res_type + "\\\\"
+			f.write(line+'|\n')
