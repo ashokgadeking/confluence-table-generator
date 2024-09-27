@@ -15,7 +15,8 @@ def build_table_md(resource, mode, file_mode):
 		if mode == 'ResourceTypes':
 			f.write('||No.||Property||Description||Type||Threat Context||GR Required||Jira Story\n')
 		else:
-			f.write('||No.||Sub-property and Parent||Description||Type||Threat Context||GR Required||Jira Story\n')
+			parent_name = resource_name + ' ' + resource.split(".",1)[1]
+			f.write('||No.||Subprops of '+parent_name+'||Description||Type||Threat Context||GR Required||Jira Story\n')
 		print("\n"+resource)
 		properties = d[mode][resource]['Properties'].keys()
 		i=1
@@ -33,8 +34,6 @@ def build_table_md(resource, mode, file_mode):
 			if link is not None:
 				new_link = link['href'].replace('./', url.rsplit("/",1)[0] + "/")
 				prop_type = '[' + prop_type + '|' + new_link + ']'
-			if mode == 'PropertyTypes':
-				property += '\\' + resource_name + '\\' + resource.split(".",1)[1]
 			f.write('|'+ str(i) + '|' + property + '|' 
 				+ desc.replace('\t','').replace('\n','') + '|' + prop_type
 				+ '|' + ' ' + '|' + ' ' + '|' + ' ' + '|\n')
