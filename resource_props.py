@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 service = sys.argv[1]
 
 def check_if_gr_required(property):
-	gr_keywords = ["id","arn","encryption","username","password","type"]
+	gr_keywords = ["Id","Arn","Encryption","Password","Role","SecurityGroup"]
 	if any(keyword in property for keyword in gr_keywords):
 	    gr_required = "Yes"
 	else:
@@ -45,6 +45,7 @@ def build_table_md(resource, mode, file_mode):
 				prop_type = '[' + prop_type + '|' + new_link + ']'
 			else:
 				gr_required = check_if_gr_required(property)
+				print(property + ' ' + gr_required)
 			f.write('|'+ str(i) + '|' + property + '|' 
 				+ desc.replace('\t','').replace('\n','') + '|' + prop_type
 				+ '|' + ' ' + '|' + gr_required + '|' + ' ' + '|\n')

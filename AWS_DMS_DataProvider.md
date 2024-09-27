@@ -1,5 +1,5 @@
 ||No.||Property||Description||Type||Threat Context||GR Required||Jira Story
-|1|DataProviderName|The name of the data provider.|String| |Yes| |
+|1|DataProviderName|The name of the data provider.|String| | | |
 |2|Description|A description of the data provider. Descriptions can have up to 31 characters.  A description can contain only ASCII letters, digits, and hyphens ('-'). Also, it can't  end with a hyphen or contain two consecutive hyphens, and can only begin with a letter.|String| | | |
 |3|ExactSettings|Property description not available.|Boolean| | | |
 |4|Engine|The type of database engine for the data provider. Valid values include "aurora",  "aurora-postgresql", "mysql", "oracle", "postgres",  "sqlserver", redshift, mariadb, mongodb, and docdb. A value of "aurora" represents Amazon Aurora MySQL-Compatible Edition.|String| | | |
