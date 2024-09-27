@@ -19,5 +19,5 @@ with open(service + '_common_props' + ".md", "w") as f:
 			f.write('||Property||Resources\n')
 			line = '|' + key + '|'
 			for res_type in value:
-				line += res_type + "\\\\"
+				line += res_type + " \\\\ "
 			f.write(line+'|\n')
