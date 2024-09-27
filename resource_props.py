@@ -9,9 +9,9 @@ service = sys.argv[1]
 def check_if_gr_required(property):
 	gr_keywords = ["id","arn","encryption","username","password","type"]
 	if any(keyword in property for keyword in gr_keywords):
-	    gr_required = "yes"
+	    gr_required = "Yes"
 	else:
-		gr_required = "no"
+		gr_required = " "
 	return gr_required
 
 def build_table_md(resource, mode, file_mode):
