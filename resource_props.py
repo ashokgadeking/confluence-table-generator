@@ -6,6 +6,14 @@ from bs4 import BeautifulSoup
 
 service = sys.argv[1]
 
+def check_if_gr_required(property):
+	gr_keywords = ["id","arn","encryption","username","password","type"]
+	if any(keyword in property for keyword in gr_keywords):
+	    gr_required = "yes"
+	else:
+		gr_required = "no"
+	return gr_required
+
 def build_table_md(resource, mode, file_mode):
 	resource_name = resource.replace('::', '_').split(".",1)[0]
 	file_name = resource_name
@@ -31,12 +39,15 @@ def build_table_md(resource, mode, file_mode):
 			parent_tag = tag.next_sibling.find_all(string="Type")[0].parent.parent
 			prop_type = parent_tag.get_text().split(" ",1)[1]
 			link = parent_tag.find('a', href=True)
+			gr_required = "Sub-property may require GR"
 			if link is not None:
 				new_link = link['href'].replace('./', url.rsplit("/",1)[0] + "/")
 				prop_type = '[' + prop_type + '|' + new_link + ']'
+			else:
+				gr_required = check_if_gr_required(property)
 			f.write('|'+ str(i) + '|' + property + '|' 
 				+ desc.replace('\t','').replace('\n','') + '|' + prop_type
-				+ '|' + ' ' + '|' + ' ' + '|' + ' ' + '|\n')
+				+ '|' + ' ' + '|' + gr_required + '|' + ' ' + '|\n')
 			i+=1
 
 with open('cfn-resource-spec.json') as f:
