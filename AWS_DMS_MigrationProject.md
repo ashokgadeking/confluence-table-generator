@@ -8,5 +8,5 @@
 |7|TransformationRules|The settings in JSON format for migration rules. Migration rules make it possible for you to change  the object names according to the rules that you specify. For example, you can change an object name  to lowercase or uppercase, add or remove a prefix or suffix, or rename objects.|String| | | |
 |8|SchemaConversionApplicationAttributes|The schema conversion application attributes, including the Amazon S3 bucket name and Amazon S3 role ARN.|[SchemaConversionApplicationAttributes|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-schemaconversionapplicationattributes.html]| |Sub-property may require GR| |
 |9|InstanceProfileArn|The Amazon Resource Name (ARN) of the instance profile for your migration project.|String| |Yes| |
-|10|Tags|Property description not available.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-tag.html]| |Sub-property may require GR| |
+|10|Tags|Property description not available.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-migrationproject-tag.html]| |Yes| |
 |11|InstanceProfileIdentifier|The identifier of the instance profile for your migration project.|String| |Yes| |

@@ -11,4 +11,4 @@
 |10|TableMappings|The table mappings for the task, in JSON format. For more information, see  Using Table Mapping to Specify Task Settings in the  AWS Database Migration Service User Guide.|String| | | |
 |11|ReplicationTaskIdentifier|An identifier for the replication task.|String| |Yes| |
 |12|SourceEndpointArn|An Amazon Resource Name (ARN) that uniquely identifies the source endpoint.|String| |Yes| |
-|13|Tags|One or more tags to be assigned to the replication task.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-replicationtask-tag.html]| |Sub-property may require GR| |
+|13|Tags|One or more tags to be assigned to the replication task.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-replicationtask-tag.html]| |Yes| |

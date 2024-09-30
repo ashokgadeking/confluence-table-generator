@@ -11,7 +11,7 @@
 |10|SslMode|The Secure Sockets Layer (SSL) mode to use for the SSL connection. The default is none.|String| | | |
 |11|RedshiftSettings|Settings in JSON format for the Amazon Redshift endpoint.|[RedshiftSettings|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-redshiftsettings.html]| |Sub-property may require GR| |
 |12|EndpointType|The type of endpoint. Valid values are source and target.|String| | | |
-|13|Tags|One or more tags to be assigned to the endpoint.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-tag.html]| |Sub-property may require GR| |
+|13|Tags|One or more tags to be assigned to the endpoint.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-tag.html]| | | |
 |14|Password|The password to be used to log in to the endpoint database.|String| |Yes| |
 |15|MongoDbSettings|Settings in JSON format for the source MongoDB endpoint. For more information about the available settings, see   Using MongoDB as a target for AWS Database Migration Service in the  AWS Database Migration Service User Guide.|[MongoDbSettings|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html]| |Sub-property may require GR| |
 |16|IbmDb2Settings|Settings in JSON format for the source IBM Db2 LUW endpoint. For information about other available settings, see  Extra connection attributes when using Db2 LUW as a source for AWS DMS in the  AWS Database Migration Service User Guide.|[IbmDb2Settings|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-ibmdb2settings.html]| |Sub-property may require GR| |

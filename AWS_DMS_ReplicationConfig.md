@@ -8,4 +8,4 @@
 |7|SourceEndpointArn|The Amazon Resource Name (ARN) of the source endpoint for this AWS DMS Serverless replication configuration.|String| |Yes| |
 |8|SupplementalSettings|Optional JSON settings for specifying supplemental data. For more information, see  Specifying supplemental data for task settings.|Json| | | |
 |9|TargetEndpointArn|The Amazon Resource Name (ARN) of the target endpoint for this AWS DMS serverless replication configuration.|String| |Yes| |
-|10|Tags|One or more optional tags associated with resources used by the AWS DMS Serverless replication. For more information, see  Tagging resources in AWS Database Migration Service.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-replicationconfig-tag.html]| |Sub-property may require GR| |
+|10|Tags|One or more optional tags associated with resources used by the AWS DMS Serverless replication. For more information, see  Tagging resources in AWS Database Migration Service.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-replicationconfig-tag.html]| |Yes| |

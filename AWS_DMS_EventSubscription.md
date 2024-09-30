@@ -5,4 +5,4 @@
 |4|SubscriptionName|The name of the AWS DMS event notification subscription. This name must be less than 255 characters.|String| | | |
 |5|SnsTopicArn| The Amazon Resource Name (ARN) of the Amazon SNS topic created for event notification. The ARN is created by Amazon SNS when you create a topic and subscribe to it.|String| |Yes| |
 |6|SourceIds|A list of identifiers for which AWS DMS provides notification events.|Array of String| |Yes| |
-|7|Tags|One or more tags to be assigned to the event subscription.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-eventsubscription-tag.html]| |Sub-property may require GR| |
+|7|Tags|One or more tags to be assigned to the event subscription.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-eventsubscription-tag.html]| |Yes| |

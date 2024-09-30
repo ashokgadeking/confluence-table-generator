@@ -7,5 +7,5 @@
 |6|AvailabilityZone|The Availability Zone where the instance profile runs.|String| | | |
 |7|PubliclyAccessible|Specifies the accessibility options for the instance profile. A value of true represents an instance profile with a public IP address. A value of false represents an instance profile with a private IP address. The default value is true.|Boolean| | | |
 |8|VpcSecurityGroups|The VPC security groups that are used with the instance profile.  The VPC security group must work with the VPC containing the instance profile.|Array of String| |Yes| |
-|9|Tags|Property description not available.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-instanceprofile-tag.html]| |Sub-property may require GR| |
+|9|Tags|Property description not available.|[Array of Tag|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-instanceprofile-tag.html]| |Yes| |
 |10|InstanceProfileIdentifier|The identifier of the instance profile. Identifiers must begin with a letter  and must contain only ASCII letters, digits, and hyphens. They can't end with  a hyphen, or contain two consecutive hyphens.|String| |Yes| |

@@ -39,7 +39,8 @@ def build_table_md(resource, mode, file_mode):
 			parent_tag = tag.next_sibling.find_all(string="Type")[0].parent.parent
 			prop_type = parent_tag.get_text().split(" ",1)[1]
 			link = parent_tag.find('a', href=True)
-			gr_required = "Sub-property may require GR"
+			if property != "Tags":
+				gr_required = "Sub-property may require GR"
 			if link is not None:
 				new_link = link['href'].replace('./', url.rsplit("/",1)[0] + "/")
 				prop_type = '[' + prop_type + '|' + new_link + ']'
