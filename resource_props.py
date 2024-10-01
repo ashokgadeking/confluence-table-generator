@@ -61,7 +61,7 @@ def build_table_md(resource, mode, file_mode, prop_dict):
 				gr_required = check_if_gr_required(property)
 				print(property + ' ' + gr_required)
 			f.write('|'+ str(i) + '|' + property + '|' 
-				+ desc.replace('\t','').replace('\n','') + '|' + prop_type
+				+ desc.replace('\t','').replace('\n','') + '|' + prop_type + '|' + ' '
 				+ '|' + common_property + '|' + gr_required + '|' + ' ' + '|\n')
 			i+=1
 
