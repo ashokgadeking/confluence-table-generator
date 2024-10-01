@@ -6,6 +6,16 @@ from bs4 import BeautifulSoup
 
 service = sys.argv[1]
 
+def get_prop_dict(d, mode):
+	prop_dict = defaultdict(list)
+	for resource in d[mode].keys():
+		if service in resource:
+			properties = d[mode][resource]['Properties'].keys()
+			for property in properties:
+				prop_dict[property].append(resource)
+
+	return prop_dict
+
 def check_if_gr_required(property):
 	gr_keywords = ["Id","Arn","Encryption","Password","Role","SecurityGroup"]
 	if any(keyword in property for keyword in gr_keywords):
@@ -14,17 +24,17 @@ def check_if_gr_required(property):
 		gr_required = " "
 	return gr_required
 
-def build_table_md(resource, mode, file_mode):
+def build_table_md(resource, mode, file_mode, prop_dict):
 	resource_name = resource.replace('::', '_').split(".",1)[0]
 	file_name = resource_name
 	if mode == 'PropertyTypes':
 		file_name += '_subproperties'
 	with open(file_name + ".md", file_mode) as f:
 		if mode == 'ResourceTypes':
-			f.write('||No.||Property||Description||Type||Threat Context||GR Required||Jira Story\n')
+			f.write('||No.||Property||Description||Type||Threat Context||Common Property||GR Required||Jira Story\n')
 		else:
 			parent_name = resource_name + ' ' + resource.split(".",1)[1]
-			f.write('||No.||Subprops of '+parent_name+'||Description||Type||Threat Context||GR Required||Jira Story\n')
+			f.write('||No.||Subprops of '+parent_name+'||Description||Type||Threat Context||Common Property||GR Required||Jira Story\n')
 		print("\n"+resource)
 		properties = d[mode][resource]['Properties'].keys()
 		i=1
@@ -39,6 +49,9 @@ def build_table_md(resource, mode, file_mode):
 			parent_tag = tag.next_sibling.find_all(string="Type")[0].parent.parent
 			prop_type = parent_tag.get_text().split(" ",1)[1]
 			link = parent_tag.find('a', href=True)
+			common_property = "No"
+			if len(prop_dict[property]) > 1:
+				common_property = "Yes"
 			if property != "Tags":
 				gr_required = "Sub-property may require GR"
 			if link is not None:
@@ -49,16 +62,18 @@ def build_table_md(resource, mode, file_mode):
 				print(property + ' ' + gr_required)
 			f.write('|'+ str(i) + '|' + property + '|' 
 				+ desc.replace('\t','').replace('\n','') + '|' + prop_type
-				+ '|' + ' ' + '|' + gr_required + '|' + ' ' + '|\n')
+				+ '|' + common_property + '|' + gr_required + '|' + ' ' + '|\n')
 			i+=1
 
 with open('cfn-resource-spec.json') as f:
 	d = json.load(f)
+	res_prop_dict = get_prop_dict(d, 'ResourceTypes')
+	sub_prop_dict = get_prop_dict(d, 'PropertyTypes')
 	for resource in d['ResourceTypes'].keys():
 		if service in resource:
-			build_table_md(resource, 'ResourceTypes', "w")
+			build_table_md(resource, 'ResourceTypes', "w", res_prop_dict)
 	for property in d['PropertyTypes'].keys():
 		if service in property:
-			build_table_md(property, 'PropertyTypes', "a")
+			build_table_md(property, 'PropertyTypes', "a", sub_prop_dict)
 	
 			

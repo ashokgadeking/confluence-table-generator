@@ -7,9 +7,9 @@ service = sys.argv[1]
 with open('cfn-resource-spec.json') as f:
 	d = json.load(f)
 	prop_dict = defaultdict(list)
-	for resource in d['ResourceTypes'].keys():
+	for resource in d['PropertyTypes'].keys():
 		if service in resource:
-			properties = d['ResourceTypes'][resource]['Properties'].keys()
+			properties = d['PropertyTypes'][resource]['Properties'].keys()
 			for property in properties:
 				prop_dict[property].append(resource)
 
