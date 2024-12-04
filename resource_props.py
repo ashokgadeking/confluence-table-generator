@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 
 service = sys.argv[1]
 
+#python3 ./resource_props.py AWS::QuickSight::DataSet
+
 def get_prop_dict(d, mode):
 	prop_dict = defaultdict(list)
 	for resource in d[mode].keys():
