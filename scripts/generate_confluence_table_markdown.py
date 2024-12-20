@@ -4,9 +4,22 @@ from collections import defaultdict
 import requests
 from bs4 import BeautifulSoup
 
-service = sys.argv[1]
+# This script generates the confluence table markdown that can be directly pasted into confluence to 
+# generate a confluence table with all the properties and the descriptions. The script basically reads the.
+# spec file and take into account all the common properties and sub properties while building the 
+# confluence table markdown so that operators are saved from creating duplicate Jerra stories for properties
+# and some properties that are common across resources under a specific AWS service. This script needs internet
+# access to read a double just documentation and gather necessary description strings to build the confluence 
+# table. The script uses the beautiful soup library to read HTML and extract the description data. This script also
+# uses the cfn-resource-spec file as input. This script can only be used for AWS clopudformation resources. 
+# 3rd party AWS resources are not supported.
 
-#python3 ./resource_props.py AWS::QuickSight::DataSet
+# USAGE (Service name or resource name are case sensitive. Consult spec file for accurate names.)
+# python ./generate_confluence_table_markdown.py AWS::QuickSight::DataSet
+## OR
+# python ./generate_confluence_table_markdown.py AWS::QuickSight
+
+service = sys.argv[1]
 
 def get_prop_dict(d, mode):
 	prop_dict = defaultdict(list)
@@ -67,7 +80,7 @@ def build_table_md(resource, mode, file_mode, prop_dict):
 				+ '|' + common_property + '|' + gr_required + '|' + ' ' + '|\n')
 			i+=1
 
-with open('cfn-resource-spec.json') as f:
+with open('../input_json_spec_files/cfn-resource-spec.json') as f:
 	d = json.load(f)
 	res_prop_dict = get_prop_dict(d, 'ResourceTypes')
 	sub_prop_dict = get_prop_dict(d, 'PropertyTypes')

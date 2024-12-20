@@ -2,8 +2,14 @@ import sys
 import json
 from collections import defaultdict
 
-# resource = sys.argv[1]
-# prop_or_subprop = sys.argv[2]
+# This script generates Jira Story descriptions for properties that need guardrails while taking common props and sub-props
+# into account. This is just the script that generates the story descriptions. There is another script in this directory 
+# that is also capable of making API calls to Jira to create the actual stories. Use this when you do not want to deal 
+# with Jira API or not have the permissions to create storeis via the API.
+
+# USAGE
+# For common props, specify any resource. Eg. $python generate_stories.py AWS::DMS::Endpoint KmsKeyId
+# For common sub-props, specify any 'resource.property'. Eg. $python generate_stories.py AWS::DMS::Endpoint.RedisSettings ServerName
 
 skip_properties = ["Description", "Tags"]
 
@@ -91,7 +97,7 @@ def detect_common_props_and_subprops(d, mode, resource, service):
 	return prop_dict
 
 
-with open('cfn-resource-spec.json') as f:
+with open('conversion.json') as f:
 		d = json.load(f)
 
 if sys.argv[1] == 'help':

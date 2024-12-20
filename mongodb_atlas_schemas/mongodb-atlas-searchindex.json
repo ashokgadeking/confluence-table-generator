@@ -1,0 +1,259 @@
+{
+  "typeName": "MongoDB::Atlas::SearchIndex",
+  "sourceUrl": "https://github.com/mongodb/mongodbatlas-cloudformation-resources/tree/master/cfn-resources/search-index",
+  "additionalProperties": false,
+  "definitions": {
+    "ApiAtlasFTSAnalyzersTokenizer": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Tokenizer that you want to use to create tokens. Tokens determine how Atlas Search splits up text into discrete chunks for indexing.",
+      "properties": {
+        "MaxGram": {
+          "type": "integer",
+          "description": "Characters to include in the longest token that Atlas Search creates."
+        },
+        "MinGram": {
+          "type": "integer",
+          "description": "Characters to include in the shortest token that Atlas Search creates."
+        },
+        "Type": {
+          "type": "string",
+          "description": "Human-readable label that identifies this tokenizer type."
+        },
+        "Group": {
+          "type": "integer",
+          "description": "Index of the character group within the matching expression to extract into tokens. Use `0` to extract all character groups."
+        },
+        "Pattern": {
+          "type": "string",
+          "description": "Regular expression to match against."
+        },
+        "MaxTokenLength": {
+          "type": "integer",
+          "description": "Maximum number of characters in a single token. Tokens greater than this length are split at this length into multiple tokens."
+        }
+      }
+    },
+    "ApiAtlasFTSAnalyzersViewManual": {
+      "type": "object",
+      "properties": {
+        "CharFilters": {
+          "type": "array",
+          "insertionOrder": false,
+          "description": "Filters that examine text one character at a time and perform filtering operations.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Name": {
+          "type": "string",
+          "description": "Human-readable name that identifies the custom analyzer. Names must be unique within an index, and must not start with any of the following strings:\n- `lucene.`\n- `builtin.`\n- `mongodb.`"
+        },
+        "TokenFilters": {
+          "type": "array",
+          "insertionOrder": false,
+          "description": "Filter that performs operations such as:\n\n- Stemming, which reduces related words, such as \"talking\", \"talked\", and \"talks\" to their root word \"talk\".\n\n- Redaction, the removal of sensitive information from public documents.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Tokenizer": {
+          "$ref": "#/definitions/ApiAtlasFTSAnalyzersTokenizer",
+          "type": "object",
+          "description": "Tokenizer that you want to use to create tokens. Tokens determine how Atlas Search splits up text into discrete chunks for indexing."
+        }
+      },
+      "additionalProperties": false
+    },
+    "ApiAtlasFTSMappingsViewManual": {
+      "type": "object",
+      "properties": {
+        "Dynamic": {
+          "type": "boolean",
+          "description": "Flag that indicates whether the index uses dynamic or static mappings. Required for search indexes if **mappings.fields** is omitted."
+        },
+        "Fields": {
+          "type": "string",
+          "description": "One or more field specifications for the Atlas Search index. Stringify json representation of field with types and properties. Required for search indexes if **mappings.dynamic** is omitted or set to **false**."
+        }
+      },
+      "additionalProperties": false
+    },
+    "ApiAtlasFTSSynonymMappingDefinitionView": {
+      "type": "object",
+      "properties": {
+        "Analyzer": {
+          "type": "string",
+          "description": "Specific pre-defined method chosen to apply to the synonyms to be searched."
+        },
+        "Name": {
+          "type": "string",
+          "description": "Human-readable label that identifies the synonym definition. Each **synonym.name** must be unique within the same index definition."
+        },
+        "Source": {
+          "type": "object",
+          "description": "Data set that stores the mapping one or more words map to one or more synonyms of those words.",
+          "$ref": "#/definitions/SynonymSource"
+        }
+      },
+      "required": [
+        "Analyzer",
+        "Name",
+        "Source"
+      ],
+      "additionalProperties": false
+    },
+    "SynonymSource": {
+      "type": "object",
+      "properties": {
+        "Collection": {
+          "type": "string",
+          "description": "Human-readable label that identifies the MongoDB collection that stores words and their applicable synonyms."
+        }
+      },
+      "required": [
+        "Collection"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "description": "Returns, adds, edits, and removes Atlas Search indexes. Also returns and updates user-defined analyzers.",
+  "properties": {
+    "Analyzer": {
+      "type": "string",
+      "description": "Specific pre-defined method chosen to convert database field text into searchable words. This conversion reduces the text of fields into the smallest units of text. These units are called a **term** or **token**. This process, known as tokenization, involves a variety of changes made to the text in fields:\n\n- extracting words\n- removing punctuation\n- removing accents\n- changing to lowercase\n- removing common words\n- reducing words to their root form (stemming)\n- changing words to their base form (lemmatization)\n MongoDB Cloud uses the selected process to build the Atlas Search index."
+    },
+    "Analyzers": {
+      "insertionOrder": false,
+      "type": "array",
+      "description": "List of user-defined methods to convert database field text into searchable words.",
+      "items": {
+        "$ref": "#/definitions/ApiAtlasFTSAnalyzersViewManual",
+        "type": "object"
+      }
+    },
+    "Profile": {
+      "type": "string",
+      "description": "The profile is defined in AWS Secret manager. See [Secret Manager Profile setup](../../../examples/profile-secret.yaml).",
+      "default": "default"
+    },
+    "ClusterName": {
+      "type": "string",
+      "description": "Name of the cluster that contains the database and collection with one or more Application Search indexes.",
+      "maxLength": 64,
+      "minLength": 1,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]*$"
+    },
+    "CollectionName": {
+      "type": "string",
+      "description": "Human-readable label that identifies the collection that contains one or more Atlas Search indexes."
+    },
+    "Database": {
+      "type": "string",
+      "description": "Human-readable label that identifies the database that contains the collection with one or more Atlas Search indexes."
+    },
+    "ProjectId": {
+      "type": "string",
+      "description": "Unique 24-hexadecimal digit string that identifies your project.",
+      "maxLength": 24,
+      "minLength": 24,
+      "pattern": "^([a-f0-9]{24})$"
+    },
+    "IndexId": {
+      "type": "string",
+      "description": "Unique 24-hexadecimal digit string that identifies the Atlas Search index. Use the [Get All Atlas Search Indexes for a Collection API](https://docs.atlas.mongodb.com/reference/api/fts-indexes-get-all/) endpoint to find the IDs of all Atlas Search indexes.",
+      "maxLength": 24,
+      "minLength": 24,
+      "pattern": "^([a-f0-9]{24})$"
+    },
+    "Mappings": {
+      "type": "object",
+      "description": "Index specifications for the collection's fields.",
+      "$ref": "#/definitions/ApiAtlasFTSMappingsViewManual"
+    },
+    "Name": {
+      "type": "string",
+      "description": "Human-readable label that identifies this index. Within each namespace, names of all indexes in the namespace must be unique."
+    },
+    "Type": {
+      "type": "string",
+      "description": "Type of index: **search** or **vectorSearch**. Default type is **search**."
+    },
+    "SearchAnalyzer": {
+      "type": "string",
+      "description": "Method applied to identify words when searching this index."
+    },
+    "Status": {
+      "type": "string",
+      "description": "Condition of the search index when you made this request.\n\n| Status | Index Condition |\n |---|---|\n | IN_PROGRESS | Atlas is building or re-building the index after an edit. |\n | STEADY | You can use this search index. |\n | FAILED | Atlas could not build the index. |\n | MIGRATING | Atlas is upgrading the underlying cluster tier and migrating indexes. |\n",
+      "enum": [
+        "FAILED",
+        "IN_PROGRESS",
+        "MIGRATING",
+        "STEADY"
+      ]
+    },
+    "Synonyms": {
+      "type": "array",
+      "insertionOrder": false,
+      "description": "Rule sets that map words to their synonyms in this index.",
+      "items": {
+        "$ref": "#/definitions/ApiAtlasFTSSynonymMappingDefinitionView",
+        "type": "object"
+      }
+    },
+    "Fields": {
+      "type": "string",
+      "description": "Array of [Fields](https://www.mongodb.com/docs/atlas/atlas-search/field-types/knn-vector/#std-label-fts-data-types-knn-vector) to configure this vectorSearch index. Stringify json representation of field with types and properties. Required for vector indexes. It must contain at least one **vector** type field."
+    }
+  },
+  "required": [
+    "ClusterName",
+    "CollectionName",
+    "Database"
+  ],
+  "primaryIdentifier": [
+    "/properties/IndexId",
+    "/properties/Profile",
+    "/properties/ProjectId",
+    "/properties/ClusterName"
+  ],
+  "readOnlyProperties": [
+    "/properties/IndexId",
+    "/properties/Status"
+  ],
+  "createOnlyProperties": [
+    "/properties/ProjectId",
+    "/properties/Profile",
+    "/properties/ClusterName",
+    "/properties/CollectionName",
+    "/properties/Database",
+    "/properties/Type"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": [
+        "secretsmanager:GetSecretValue"
+      ]
+    },
+    "read": {
+      "permissions": [
+        "secretsmanager:GetSecretValue"
+      ]
+    },
+    "update": {
+      "permissions": [
+        "secretsmanager:GetSecretValue"
+      ]
+    },
+    "delete": {
+      "permissions": [
+        "secretsmanager:GetSecretValue"
+      ]
+    }
+  },
+  "documentationUrl": "https://github.com/mongodb/mongodbatlas-cloudformation-resources/blob/master/cfn-resources/search-index/README.md",
+  "tagging": {
+    "taggable": false
+  }
+}

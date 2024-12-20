@@ -2,8 +2,16 @@ import sys
 import json
 from collections import defaultdict
 
-service = sys.argv[1]
-with open('cfn-resource-spec.json') as f:
+## This script generates common props, common sub-props and property tree for a specific AWS service.
+
+## Use the right input json file for the correct output. Supports third-party resources.
+
+# USAGE $python generate_common_props_and_tree.py ../input_json_spec_files/mongodb-atlas-resource-spec.json MongoDB::Atlas
+# USAGE $python generate_common_props_and_tree.py ../input_json_spec_files/cfn-resource-spec.json AWS::Quicksight
+
+service = sys.argv[2]
+input_file = sys.argv[1]
+with open(input_file) as f:
 	d = json.load(f)
 
 class TreeNode:
@@ -48,6 +56,7 @@ def build_prop_tree(resource, property, json_load, parent_node):
 
 	for prop in properties:
 		prop_keys = json_load['PropertyTypes'][prop_name]['Properties'][prop]
+		# print(prop_name)
 		if 'PrimitiveType' in prop_keys:
 			data_type = prop_keys['PrimitiveType']
 		else:
@@ -67,6 +76,16 @@ def build_prop_tree(resource, property, json_load, parent_node):
 def run(json_load):
 
 	for resource in d['ResourceTypes'].keys():
+		if resource not in ["MongoDB::Atlas::Cluster",
+							"MongoDB::Atlas::Project",
+							"MongoDB::Atlas::DatabaseUser",
+							"MongoDB::Atlas::EncryptionAtRest",
+							"MongoDB::Atlas::PrivateEndpointService",
+							"MongoDB::Atlas::Trigger",
+							"MongoDB::Atlas::ThirdPartyIntegration",
+							"MongoDB::Atlas::CustomDBRole",
+							"MongoDB::Atlas::ProjectIpAccessList"]:
+			continue
 		if service in resource:
 			root = TreeNode(resource,"root")
 			properties = json_load['ResourceTypes'][resource]['Properties'].keys()
@@ -77,6 +96,7 @@ def run(json_load):
 					continue
 				prop_keys = json_load['ResourceTypes'][resource]['Properties'][prop]
 				if 'PrimitiveType' not in prop_keys and 'PrimitiveItemType' not in prop_keys:
+					# print(prop)
 					prop_node = TreeNode(prop,prop_keys['Type'])
 					root.add_child(prop_node)
 					if prop_keys['Type'] == 'List' or prop_keys['Type'] == 'Map':
@@ -85,7 +105,8 @@ def run(json_load):
 					else:
 						build_prop_tree(resource, prop_keys['Type'], json_load, prop_node)
 
-					prop_node.print_tree()
+			# print(resource)
+			root.print_tree()
 
 	return json_load
 
@@ -126,7 +147,8 @@ def write_props_file(json_load,mode,file_name_suffix,attr_array):
 				if 'Path' in d[mode][resource]['Properties'][property].keys():
 					prop_path_pattern = list(d[mode][resource]['Properties'][property]['Path'])
 					prop_path_pattern.append(property)
-					prop_dict[property].append(resource + ' {code}' + str(prop_path_pattern)+'{code}')
+					# prop_dict[property].append(resource + ' {code}' + str(prop_path_pattern)+'{code}')
+					prop_dict[property].append(resource)
 
 	with open(service.replace('::','_') + file_name_suffix + ".md", "w") as f:
 		f.write('||Property||Resources\n')

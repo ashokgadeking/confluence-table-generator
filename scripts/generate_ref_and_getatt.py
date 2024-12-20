@@ -3,6 +3,11 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
+# This script generates ref and get-att values for an AWS resource. This script only support AWS Cloudformation
+# resources. 3rd party resources are not supported.
+
+# Usage python ./generate_ref_and_getatt.py AWS::QuickSight::DataSet
+
 service = sys.argv[1]
 
 def get_ref_and_getatt(resource):
@@ -26,7 +31,7 @@ def get_ref_and_getatt(resource):
 				ref_desc += ' '+tag.next_sibling.next_sibling.get_text(strip=True).replace('\n','')
 			print(' '.join(ref_desc.split()))
 
-with open('cfn-resource-spec.json') as f:
+with open('../input_json_spec_files/cfn-resource-spec.json') as f:
 	d = json.load(f)
 	for resource in d['ResourceTypes'].keys():
 		if service in resource:
